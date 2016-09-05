@@ -34,7 +34,7 @@ func NewVisitor(redisConn redis.Conn, uid string) (*VisitorData, error) {
 	visitorData := &VisitorData{Visitor: Visitor{Records: make([]*Record, 0)}, uid: uid}
 	data, err := redis.Bytes(redisConn.Do("GET", RedisVisitorPrifix+uid))
 	if err == redis.ErrNil {
-		return visitorData, ErrorZeroValue
+		return visitorData, nil
 	} else if err != nil {
 		return nil, err
 	}
